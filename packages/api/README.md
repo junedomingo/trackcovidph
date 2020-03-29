@@ -1,0 +1,1 @@
+# TrackCovidPh.com GraphQL Endpoint

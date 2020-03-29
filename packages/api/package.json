@@ -1,0 +1,33 @@
+{
+  "name": "trackcovidph-graphql",
+  "version": "1.0.0",
+  "description": "A GraphQL endpoint for tracking Covid-19 in the Philippines",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec ts-node --files src/index.ts"
+  },
+  "keywords": [],
+  "author": "June Domingo <junedomingo@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/graphql": "^14.5.0",
+    "@types/moment": "^2.13.0",
+    "apollo-server-express": "^2.11.0",
+    "nodemon": "^2.0.2",
+    "reflect-metadata": "^0.1.13",
+    "ts-node": "^8.8.1",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "apollo-datasource-rest": "^0.8.0",
+    "dayjs": "^1.8.23",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "graphql": "^14.6.0",
+    "graphql-scalars": "^1.0.9",
+    "moment": "^2.24.0",
+    "type-graphql": "^0.17.6"
+  }
+}
