@@ -1,8 +1,28 @@
 {
+  "name": "trackcovidph",
   "private": true,
   "workspaces": {
     "packages": [
       "packages/*"
     ]
+  },
+  "scripts": {
+    "clean:node_modules": "rimraf ./node_modules **/{dist,node_modules}/",
+    "clean:tsbuildinfo": "rimraf ./packages/*/tsconfig*tsbuildinfo",
+    "clean": "npm run clean:tsbuildinfo && build:clean && npm run clean:node_modules",
+    "build": "tsc --build tsconfig.build.json",
+    "build:watch": "tsc --build tsconfig.build.json --watch",
+    "build:clean": "tsc --build tsconfig.build.json --clean && npm run clean:tsbuildinfo",
+    "start:web": "lerna run start --stream --scope=@trackcovidph/web",
+    "start:api:watch": "concurrently \"lerna run start --stream --scope=@trackcovidph/api\" \"npm run build:watch\"",
+    "start:api": "lerna run start --stream --scope=@trackcovidph/api",
+    "release": "lerna version --conventional-commits",
+    "postinstall": "npm run clean:tsbuildinfo && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0",
+    "lerna": "^3.20.2",
+    "rimraf": "^3.0.2",
+    "typescript": "^3.8.3"
   }
 }
