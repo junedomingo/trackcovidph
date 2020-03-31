@@ -1,3 +1,9 @@
 node_modules
+.DS_Store
+*.log
+.vscode
 dist
+lib
+tsconfig.tsbuildinfo
+.idea
 .env
