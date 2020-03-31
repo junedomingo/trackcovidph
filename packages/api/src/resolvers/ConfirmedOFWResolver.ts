@@ -3,7 +3,7 @@ import { Ctx, Query, Resolver } from 'type-graphql';
 import { AppContext, ConfirmedOFWResponse } from '../types';
 
 @Resolver()
-export class ConfirmedOFWsResolver {
+export class ConfirmedOFWResolver {
   @Query(() => [ConfirmedOFWResponse])
   async confirmedOFWs(@Ctx() { dataSources }: AppContext) {
     const { features } = await dataSources.ArcGISApi.getConfirmedOFWs();

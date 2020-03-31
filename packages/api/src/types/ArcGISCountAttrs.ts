@@ -1,4 +1,4 @@
-export interface ArcGISCountsAttrs {
+export interface ArcGISCountAttrs {
   attributes: {
     day: number;
     confirmed: number;

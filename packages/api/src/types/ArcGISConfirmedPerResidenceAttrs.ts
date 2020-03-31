@@ -1,4 +1,4 @@
-export interface ArcGISConfirmedByResidenceAttrs {
+export interface ArcGISConfirmedPerResidenceAttrs {
   attributes: {
     value: number;
     residence: string;

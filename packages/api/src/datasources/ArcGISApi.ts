@@ -2,13 +2,13 @@ import { RESTDataSource } from 'apollo-datasource-rest';
 
 import { DATA_URLS } from '../conts';
 import {
-  ArcGISConfirmedByHealthFacilityAttrs,
-  ArcGISConfirmedByResidenceAttrs,
+  ArcGISConfirmedPerHealthFacilityAttrs,
+  ArcGISConfirmedPerResidenceAttrs,
   ArcGISConfirmedForeignNationalAttrs,
   ArcGISConfirmedLocalAttrs,
   ArcGISConfirmedOFWAttrs,
-  ArcGISCountsAttrs,
-  ArcGISPUIByHealthFacilityAttrs,
+  ArcGISCountAttrs,
+  ArcGISPUIPerHealthFacilityAttrs,
   ArcGISResponse,
 } from '../types';
 import { parseToJSON, sanitizeResponse, isDummy, getDummyData } from '../utils';
@@ -19,7 +19,7 @@ export class ArcGISApi extends RESTDataSource {
     this.baseURL = DATA_URLS.ARCGIS_BASE_URL;
   }
 
-  async getCount(): Promise<ArcGISResponse<ArcGISCountsAttrs>> {
+  async getCount(): Promise<ArcGISResponse<ArcGISCountAttrs>> {
     try {
       const response: string = await this.get(DATA_URLS.ARCGIS_COUNT);
       return sanitizeResponse(parseToJSON(response));
@@ -43,7 +43,7 @@ export class ArcGISApi extends RESTDataSource {
   }
 
   async getConfirmedByHealthFacility(): Promise<
-    ArcGISResponse<ArcGISConfirmedByHealthFacilityAttrs>
+    ArcGISResponse<ArcGISConfirmedPerHealthFacilityAttrs>
   > {
     try {
       const response: string = await this.get(DATA_URLS.ARCGIS_CONFIRMED_BY_HEALTH_FACILITY);
@@ -53,7 +53,7 @@ export class ArcGISApi extends RESTDataSource {
     }
   }
 
-  async getPUIsByHealthFacility(): Promise<ArcGISResponse<ArcGISPUIByHealthFacilityAttrs>> {
+  async getPUIsByHealthFacility(): Promise<ArcGISResponse<ArcGISPUIPerHealthFacilityAttrs>> {
     try {
       const response: string = await this.get(DATA_URLS.ARCGIS_PUIs_BY_HEALTH_FACILITY);
       return sanitizeResponse(parseToJSON(response));
@@ -62,7 +62,7 @@ export class ArcGISApi extends RESTDataSource {
     }
   }
 
-  async getConfirmedByResidence(): Promise<ArcGISResponse<ArcGISConfirmedByResidenceAttrs>> {
+  async getConfirmedByResidence(): Promise<ArcGISResponse<ArcGISConfirmedPerResidenceAttrs>> {
     try {
       const response: string = await this.get(DATA_URLS.ARCGIS_CONFIRMED_BY_RESIDENCE);
       return sanitizeResponse(parseToJSON(response));

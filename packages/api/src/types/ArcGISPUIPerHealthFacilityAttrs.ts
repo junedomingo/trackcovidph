@@ -1,4 +1,4 @@
-export interface ArcGISPUIByHealthFacilityAttrs {
+export interface ArcGISPUIPerHealthFacilityAttrs {
   attributes: {
     region: string;
     hf: string;

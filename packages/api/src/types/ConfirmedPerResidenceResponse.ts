@@ -1,7 +1,7 @@
 import { ObjectType, Field } from 'type-graphql';
 
 @ObjectType()
-export class ConfirmedByResidenceResponse {
+export class ConfirmedPerResidenceResponse {
   @Field()
   count: number;
 

@@ -3,7 +3,7 @@ import { Ctx, Query, Resolver } from 'type-graphql';
 import { AppContext, ConfirmedForeignNationalResponse } from '../types';
 
 @Resolver()
-export class ConfirmedForeignNationalsResolver {
+export class ConfirmedForeignNationalResolver {
   @Query(() => [ConfirmedForeignNationalResponse])
   async confirmedForeignNationals(@Ctx() { dataSources }: AppContext) {
     const { features } = await dataSources.ArcGISApi.getConfirmedForeignNationals();

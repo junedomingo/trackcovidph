@@ -8,11 +8,11 @@ dotenv.config();
 
 import { ArcGISApi } from './datasources/ArcGISApi';
 import {
-  ConfirmedByHealthFacilityResolver,
-  ConfirmedByResidenceResolver,
-  ConfirmedForeignNationalsResolver,
-  ConfirmedLocalsResolver,
-  ConfirmedOFWsResolver,
+  ConfirmedPerHealthFacilityResolver,
+  ConfirmedPerResidenceResolver,
+  ConfirmedForeignNationalResolver,
+  ConfirmedLocalResolver,
+  ConfirmedOFWResolver,
   CountResolver,
   PUIsByHealthFacilityResolver,
 } from './resolvers';
@@ -23,13 +23,13 @@ import {
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
       resolvers: [
-        ConfirmedLocalsResolver,
+        ConfirmedLocalResolver,
         CountResolver,
-        ConfirmedByHealthFacilityResolver,
+        ConfirmedPerHealthFacilityResolver,
         PUIsByHealthFacilityResolver,
-        ConfirmedByResidenceResolver,
-        ConfirmedOFWsResolver,
-        ConfirmedForeignNationalsResolver,
+        ConfirmedPerResidenceResolver,
+        ConfirmedOFWResolver,
+        ConfirmedForeignNationalResolver,
       ],
       validate: true,
     }),

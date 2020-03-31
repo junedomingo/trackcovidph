@@ -4,7 +4,7 @@ import { AppContext, ConfirmedLocalResponse, ArcGISConfirmedLocalAttrs } from '.
 import { toDate, toAge, toRelationsships } from '../utils';
 
 @Resolver()
-export class ConfirmedLocalsResolver {
+export class ConfirmedLocalResolver {
   @Query(() => [ConfirmedLocalResponse])
   async confirmedLocals(@Ctx() { dataSources }: AppContext) {
     const { features } = await dataSources.ArcGISApi.getConfirmedLocals();

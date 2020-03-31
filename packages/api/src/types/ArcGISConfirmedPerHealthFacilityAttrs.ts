@@ -1,4 +1,4 @@
-export interface ArcGISConfirmedByHealthFacilityAttrs {
+export interface ArcGISConfirmedPerHealthFacilityAttrs {
   attributes: {
     facility: string;
     latitude: number;
