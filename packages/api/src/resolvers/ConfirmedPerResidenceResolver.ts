@@ -6,8 +6,8 @@ import { ConfirmedPerResidenceResponse } from '../types';
 @Resolver()
 export class ConfirmedPerResidenceResolver {
   @Query(() => [ConfirmedPerResidenceResponse])
-  async confirmedByResidence(@Ctx() { dataSources }: AppContext) {
-    const { features } = await dataSources.ArcGISApi.getConfirmedByResidence();
+  async confirmedPerResidence(@Ctx() { dataSources }: AppContext) {
+    const { features } = await dataSources.ArcGISApi.getConfirmedPerResidence();
     const data = features.map(
       ({ attributes: attr }): ConfirmedPerResidenceResponse => ({
         count: attr.value,

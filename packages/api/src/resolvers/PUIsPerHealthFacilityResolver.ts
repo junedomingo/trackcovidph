@@ -4,8 +4,8 @@ import { AppContext, PUIPerHealthFacilityResponse } from '../types';
 @Resolver()
 export class PUIsByHealthFacilityResolver {
   @Query(() => [PUIPerHealthFacilityResponse])
-  async puisByHealthFacility(@Ctx() { dataSources }: AppContext) {
-    const { features } = await dataSources.ArcGISApi.getPUIsByHealthFacility();
+  async puisPerHealthFacility(@Ctx() { dataSources }: AppContext) {
+    const { features } = await dataSources.ArcGISApi.getPUIsPerHealthFacility();
     const data = features.map(
       ({ attributes: attr }): PUIPerHealthFacilityResponse => ({
         region: attr.region,

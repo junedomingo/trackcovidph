@@ -6,8 +6,8 @@ import { ConfirmedPerHealthFacilityResponse } from '../types';
 @Resolver()
 export class ConfirmedPerHealthFacilityResolver {
   @Query(() => [ConfirmedPerHealthFacilityResponse])
-  async confirmedByHealthFacility(@Ctx() { dataSources }: AppContext) {
-    const { features } = await dataSources.ArcGISApi.getConfirmedByHealthFacility();
+  async confirmedPerHealthFacility(@Ctx() { dataSources }: AppContext) {
+    const { features } = await dataSources.ArcGISApi.getConfirmedPerHealthFacility();
     const data = features.map(
       ({ attributes: attr }): ConfirmedPerHealthFacilityResponse => ({
         count: attr.count_,
