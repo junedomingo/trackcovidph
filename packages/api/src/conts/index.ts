@@ -1,2 +1,2 @@
-export * from './dataUrls';
+export * from './endpoints';
 export * from './helpers';

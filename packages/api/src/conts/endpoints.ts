@@ -1,7 +1,7 @@
 /**
  * Based on https://ncovtracker.doh.gov.ph/ API endpoints
  */
-export enum DATA_URLS {
+export enum ENDPOINTS {
   ARCGIS_BASE_URL = 'https://services5.arcgis.com/mnYJ21GiFTR97WFg/arcgis/rest/services/',
 
   ARCGIS_CONFIRMED_LOCALS = 'PH_masterlist/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=sequ%20desc',

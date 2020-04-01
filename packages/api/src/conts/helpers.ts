@@ -23,7 +23,8 @@ export enum REL {
   CONTACT = 'Contact',
   HOUSEHOLD = 'Household',
   HOUSEHOLD_MEMBER = 'Household member',
-  EXPOSURE = 'With Exposure to',
+  EXPOSURE = 'With Exposure',
+  EXPOSURE_HISTORY = 'With Exposure History',
 }
 
 export enum SEX {

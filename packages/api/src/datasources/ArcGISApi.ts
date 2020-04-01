@@ -1,6 +1,6 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 
-import { DATA_URLS } from '../conts';
+import { ENDPOINTS } from '../conts';
 import {
   ArcGISConfirmedPerHealthFacilityAttrs,
   ArcGISConfirmedPerResidenceAttrs,
@@ -16,12 +16,12 @@ import { parseToJSON, sanitizeResponse, isDummy, getDummyData } from '../utils';
 export class ArcGISApi extends RESTDataSource {
   constructor() {
     super();
-    this.baseURL = DATA_URLS.ARCGIS_BASE_URL;
+    this.baseURL = ENDPOINTS.ARCGIS_BASE_URL;
   }
 
   async getCount(): Promise<ArcGISResponse<ArcGISCountAttrs>> {
     try {
-      const response: string = await this.get(DATA_URLS.ARCGIS_COUNT);
+      const response: string = await this.get(ENDPOINTS.ARCGIS_COUNT);
       return sanitizeResponse(parseToJSON(response));
     } catch (error) {
       throw error;
@@ -35,7 +35,7 @@ export class ArcGISApi extends RESTDataSource {
           parseToJSON(getDummyData(`${__dirname}/dummyData/DummyDataConfirmedLocals.json`))
         );
       }
-      const response: string = await this.get(DATA_URLS.ARCGIS_CONFIRMED_LOCALS);
+      const response: string = await this.get(ENDPOINTS.ARCGIS_CONFIRMED_LOCALS);
       return sanitizeResponse(parseToJSON(response));
     } catch (error) {
       throw error;
@@ -46,7 +46,7 @@ export class ArcGISApi extends RESTDataSource {
     ArcGISResponse<ArcGISConfirmedPerHealthFacilityAttrs>
   > {
     try {
-      const response: string = await this.get(DATA_URLS.ARCGIS_CONFIRMED_PER_HEALTH_FACILITY);
+      const response: string = await this.get(ENDPOINTS.ARCGIS_CONFIRMED_PER_HEALTH_FACILITY);
       return sanitizeResponse(parseToJSON(response));
     } catch (error) {
       throw error;
@@ -55,7 +55,7 @@ export class ArcGISApi extends RESTDataSource {
 
   async getPUIsPerHealthFacility(): Promise<ArcGISResponse<ArcGISPUIPerHealthFacilityAttrs>> {
     try {
-      const response: string = await this.get(DATA_URLS.ARCGIS_PUIs_PER_HEALTH_FACILITY);
+      const response: string = await this.get(ENDPOINTS.ARCGIS_PUIs_PER_HEALTH_FACILITY);
       return sanitizeResponse(parseToJSON(response));
     } catch (error) {
       throw error;
@@ -64,7 +64,7 @@ export class ArcGISApi extends RESTDataSource {
 
   async getConfirmedPerResidence(): Promise<ArcGISResponse<ArcGISConfirmedPerResidenceAttrs>> {
     try {
-      const response: string = await this.get(DATA_URLS.ARCGIS_CONFIRMED_PER_RESIDENCE);
+      const response: string = await this.get(ENDPOINTS.ARCGIS_CONFIRMED_PER_RESIDENCE);
       return sanitizeResponse(parseToJSON(response));
     } catch (error) {
       throw error;
@@ -73,7 +73,7 @@ export class ArcGISApi extends RESTDataSource {
 
   async getConfirmedOFWs(): Promise<ArcGISResponse<ArcGISConfirmedOFWAttrs>> {
     try {
-      const response: string = await this.get(DATA_URLS.ARCGIS_CONFIRMED_OFWs);
+      const response: string = await this.get(ENDPOINTS.ARCGIS_CONFIRMED_OFWs);
       return sanitizeResponse(parseToJSON(response));
     } catch (error) {
       throw error;
@@ -84,7 +84,7 @@ export class ArcGISApi extends RESTDataSource {
     ArcGISResponse<ArcGISConfirmedForeignNationalAttrs>
   > {
     try {
-      const response = await this.get(DATA_URLS.ARCGIS_CONFIRMED_FOREIGN_NATIONALS);
+      const response = await this.get(ENDPOINTS.ARCGIS_CONFIRMED_FOREIGN_NATIONALS);
       return sanitizeResponse(parseToJSON(response));
     } catch (error) {
       throw error;

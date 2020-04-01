@@ -57,7 +57,7 @@ export function getDummyData(path: string) {
   return String(buffer);
 }
 
-export function getUnique(arr: any, key: string): any {
+export function getUnique<T>(arr: T[], key: string): T[] {
   return [...new Map(arr.map((item: any) => [item[key], item])).values()];
 }
 

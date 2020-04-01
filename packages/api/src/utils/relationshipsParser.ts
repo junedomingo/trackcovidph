@@ -7,15 +7,23 @@ import {
   Connections,
   Niece,
   Nephew,
+  Contact,
+  Relative,
+  HouseholdMember,
+  Exposure,
 } from '../types';
 import { WORDS_TO_EXCLUDE, REL, SEX } from '../conts';
 import { getUnique, isContainNum, getNextStr } from './helpers';
 
 let cachedFeatures: any = null;
 
-function getMatchedCase(travelHxAttr: string, relationship: string): string[] | null {
+function getMatchedCase(
+  travelHxAttr: string,
+  relationship: string,
+  strIden: string = 'of'
+): string[] | null {
   const matches: string[] | null = [];
-  const wordToSearch = `${relationship} of`;
+  const wordToSearch = `${relationship} ${strIden}`;
   if (travelHxAttr && travelHxAttr.includes(wordToSearch)) {
     const firstMatched = getNextStr(travelHxAttr, wordToSearch)![1];
     matches.push(firstMatched);
@@ -94,6 +102,10 @@ function getConnections(
   const allSiblings: Sibling[] = [];
   const allNieces: Niece[] = [];
   const allNephews: Nephew[] = [];
+  const allContacts: Contact[] = [];
+  const allRelatives: Relative[] = [];
+  const allHouseholdMembers: HouseholdMember[] = [];
+  const allExposures: Exposure[] = [];
   cachedFeatures = features;
   cachedFeatures.map(({ attributes: attrs }: any) => {
     const travelHxAttr = attrs[travelHxStrAttr];
@@ -139,6 +151,10 @@ function getConnections(
       matchedSiblings.map((sibling: string) => {
         siblingObj = getSibling({ ...getSiblingParam, sibling });
         allSiblings.push(siblingObj);
+        // need to add reverse since they are siblings
+        allSiblings.push(
+          Object.assign(siblingObj, { id: siblingObj.sibling, sibling: siblingObj.id })
+        );
       });
     }
 
@@ -163,22 +179,97 @@ function getConnections(
         allNephews.push({ id, nephew: attrs[idStrAttr] });
       });
     }
+
+    /**
+     * Get matched contacts
+     */
+    const matchedContacts = getMatchedCase(travelHxAttr, REL.CONTACT);
+
+    if (matchedContacts) {
+      matchedContacts.map(id => {
+        allContacts.push({ id, contact: attrs[idStrAttr] });
+        // need to add reverse since they are contact to each other
+        allContacts.push({ id: attrs[idStrAttr], contact: id });
+      });
+    }
+
+    /**
+     * Get matched relatives
+     */
+    const matchedRelatives = getMatchedCase(travelHxAttr, REL.RELATIVE);
+
+    if (matchedRelatives) {
+      matchedRelatives.map(id => {
+        allRelatives.push({ id, relative: attrs[idStrAttr] });
+        // need to add reverse since they are relative to each other
+        allRelatives.push({ id: attrs[idStrAttr], relative: id });
+      });
+    }
+
+    /**
+     * Get matched household members
+     */
+    const matchedHouseholdMembers =
+      getMatchedCase(travelHxAttr, REL.HOUSEHOLD) ||
+      getMatchedCase(travelHxAttr, REL.HOUSEHOLD_MEMBER);
+
+    if (matchedHouseholdMembers) {
+      matchedHouseholdMembers.map(id => {
+        allHouseholdMembers.push({ id, household: attrs[idStrAttr] });
+      });
+    }
+
+    /**
+     * Get matched exposures with
+     */
+    const matchedExposures =
+      getMatchedCase(travelHxAttr, REL.EXPOSURE, 'to') ||
+      getMatchedCase(travelHxAttr, REL.EXPOSURE_HISTORY, 'to');
+
+    if (matchedExposures) {
+      matchedExposures.map(id => {
+        allExposures.push({ id, exposure: attrs[idStrAttr] });
+      });
+    }
   });
 
   const mother = getChildsParent(id, allChildren, SEX.FEMALE);
   const father = getChildsParent(id, allChildren, SEX.MALE);
   const children = allChildren.filter(({ parent }) => parent === id).map(({ child }) => child);
 
-  const filteredSiblings = allSiblings.filter(sibling => sibling.id === id).map(sibling => sibling);
-  const siblings = getUnique(filteredSiblings, 'sibling') as Sibling[];
+  const siblings = allSiblings.filter(sibling => sibling.id === id).map(sibling => sibling);
+  const uniqueSiblings = getUnique<Sibling>(siblings, 'sibling');
 
   const nieces = allNieces.filter(niece => niece.id === id).map(niece => niece);
   const nephews = allNephews.filter(nephew => nephew.id === id).map(nephew => nephew);
 
-  return { children, mother, father, siblings, nieces, nephews };
+  const contacts = allContacts.filter(contact => contact.id === id).map(contact => contact);
+  const uniqueContacts = getUnique<Contact>(contacts, 'contact');
+
+  const relatives = allRelatives.filter(relative => relative.id === id).map(relative => relative);
+  const uniqueRelatives = getUnique<Relative>(relatives, 'relative');
+
+  const householdMembers = allHouseholdMembers
+    .filter(household => household.id === id)
+    .map(household => household);
+
+  const exposures = allExposures.filter(exposure => exposure.id === id).map(exposure => exposure);
+
+  return {
+    children,
+    mother,
+    father,
+    siblings: uniqueSiblings,
+    nieces,
+    nephews,
+    contacts: uniqueContacts,
+    relatives: uniqueRelatives,
+    householdMembers,
+    exposures,
+  };
 }
 
-export function toRelationsships(
+export function toRelationships(
   id: string,
   idStrAttr: string,
   sexStrAttr: string,
@@ -186,22 +277,11 @@ export function toRelationsships(
   travelHxStrAttr: string,
   features: any
 ): Relationships {
-  const { mother, father, children, siblings, nieces, nephews } = getConnections(
-    id,
-    idStrAttr,
-    sexStrAttr,
-    travelHxStrAttr,
-    features
-  );
+  const { ...connections } = getConnections(id, idStrAttr, sexStrAttr, travelHxStrAttr, features);
 
   return {
     wife: getWife(travelHxAttr),
     husband: getHusband(travelHxAttr),
-    children,
-    mother,
-    father,
-    siblings,
-    nieces,
-    nephews,
+    ...connections,
   };
 }

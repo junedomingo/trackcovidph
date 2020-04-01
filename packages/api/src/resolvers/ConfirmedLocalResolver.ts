@@ -1,7 +1,7 @@
 import { Ctx, Query, Resolver } from 'type-graphql';
 
 import { AppContext, ConfirmedLocalResponse, ArcGISConfirmedLocalAttrs } from '../types';
-import { toDate, toAge, toRelationsships } from '../utils';
+import { toDate, toAge, toRelationships } from '../utils';
 
 @Resolver()
 export class ConfirmedLocalResolver {
@@ -10,16 +10,7 @@ export class ConfirmedLocalResolver {
     const { features } = await dataSources.ArcGISApi.getConfirmedLocals();
     const data = features.map(
       ({ attributes: attrs }: ArcGISConfirmedLocalAttrs): ConfirmedLocalResponse => {
-        const {
-          children,
-          wife,
-          husband,
-          mother,
-          father,
-          siblings,
-          nieces,
-          nephews,
-        } = toRelationsships(
+        const { ...rels } = toRelationships(
           attrs.PH_masterl,
           'PH_masterl',
           'kasarian',
@@ -28,20 +19,8 @@ export class ConfirmedLocalResolver {
           features
         );
         const id = attrs.PH_masterl;
-        const relationships = Object.assign(
-          {},
-          {
-            id,
-            wife,
-            husband,
-            mother,
-            father,
-            children,
-            siblings,
-            nieces,
-            nephews,
-          }
-        );
+        const relationships = { id, ...rels };
+
         console.log(relationships);
         return {
           case_id: attrs.PH_masterl,

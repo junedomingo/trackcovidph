@@ -24,3 +24,7 @@ export * from './Connections';
 export * from './GetChildParams';
 export * from './Niece';
 export * from './Nephew';
+export * from './Contact';
+export * from './Relative';
+export * from './Household';
+export * from './Exposure';

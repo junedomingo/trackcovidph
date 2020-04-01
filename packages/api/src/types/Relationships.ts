@@ -2,6 +2,10 @@ import { Field, ObjectType } from 'type-graphql';
 import { Sibling } from './Sibling';
 import { Niece } from './Niece';
 import { Nephew } from './Nephew';
+import { Contact } from './Contact';
+import { Relative } from './Relative';
+import { HouseholdMember } from './Household';
+import { Exposure } from './Exposure';
 
 @ObjectType()
 export class Relationships {
@@ -28,4 +32,16 @@ export class Relationships {
 
   @Field(() => [Nephew])
   nephews: Nephew[];
+
+  @Field(() => [Contact])
+  contacts: Contact[];
+
+  @Field(() => [Relative])
+  relatives: Relative[];
+
+  @Field(() => [HouseholdMember])
+  householdMembers: HouseholdMember[];
+
+  @Field(() => [Exposure])
+  exposures: Exposure[];
 }
