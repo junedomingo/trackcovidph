@@ -18,7 +18,7 @@ export enum REL {
   RELATIVE = 'Relative',
   SISTER = 'Sister',
   BROTHER = 'Brother',
-  NIECE = 'Neice',
+  NIECE = 'Niece',
   NEPHEW = 'Nephew',
   CONTACT = 'Contact',
   HOUSEHOLD = 'Household',
