@@ -5,26 +5,25 @@ import {
   GetChildParams,
   GetSiblingParams,
   Connections,
+  Niece,
+  Nephew,
 } from '../types';
 import { WORDS_TO_EXCLUDE, REL, SEX } from '../conts';
-import { getUnique } from './helpers';
+import { getUnique, isContainNum, getNextStr } from './helpers';
 
 let cachedFeatures: any = null;
 
-function getMatchedCase(
-  travelHxAttr: string,
-  relationship: string,
-  withSecondMatch: boolean = false
-): string | null {
+function getMatchedCase(travelHxAttr: string, relationship: string): string[] | null {
+  const matches: string[] | null = [];
   const wordToSearch = `${relationship} of`;
   if (travelHxAttr && travelHxAttr.includes(wordToSearch)) {
-    const firstMatched = travelHxAttr.match(wordToSearch + '\\s(\\w+)')![1];
+    const firstMatched = getNextStr(travelHxAttr, wordToSearch)![1];
+    matches.push(firstMatched);
     const secondMatched =
-      travelHxAttr.match(`${firstMatched} and` + '\\s(\\w+)') ||
-      travelHxAttr.match(`${firstMatched},` + '\\s(\\w+)');
+      getNextStr(travelHxAttr, `${matches[0]} and`) || getNextStr(travelHxAttr, `${matches[0]},`);
 
-    if (withSecondMatch && secondMatched) {
-      return secondMatched[1];
+    if (secondMatched && isContainNum(secondMatched[1])) {
+      matches.push(secondMatched[1]);
     }
 
     /**
@@ -32,20 +31,21 @@ function getMatchedCase(
      * eg. in PH43
      */
     if (WORDS_TO_EXCLUDE.some(word => travelHxAttr.includes(word))) {
-      return null;
+      return matches;
     }
-    return firstMatched;
+
+    return matches;
   }
 
   return null;
 }
 
 function getWife(travelHxAttr: string) {
-  return getMatchedCase(travelHxAttr, REL.HUSBAND);
+  return getMatchedCase(travelHxAttr, REL.HUSBAND)?.[0] ?? null;
 }
 
 function getHusband(travelHxAttr: string) {
-  return getMatchedCase(travelHxAttr, REL.WIFE);
+  return getMatchedCase(travelHxAttr, REL.WIFE)?.[0] ?? null;
 }
 
 function getChildsParent(id: string, children: Child[], sex: string) {
@@ -92,6 +92,8 @@ function getConnections(
 ): Connections {
   const allChildren: Child[] = [];
   const allSiblings: Sibling[] = [];
+  const allNieces: Niece[] = [];
+  const allNephews: Nephew[] = [];
   cachedFeatures = features;
   cachedFeatures.map(({ attributes: attrs }: any) => {
     const travelHxAttr = attrs[travelHxStrAttr];
@@ -117,55 +119,63 @@ function getConnections(
     /**
      * Get children
      */
-    const firstParent =
+    const matchedChildsParents =
       getMatchedCase(travelHxAttr, REL.SON) || getMatchedCase(travelHxAttr, REL.DAUGHTER);
 
-    // If has "and" eg. "Son of PH169 and PH176" then we need also to match PH176
-    const nextParent =
-      getMatchedCase(travelHxAttr, REL.SON, true) ||
-      getMatchedCase(travelHxAttr, REL.DAUGHTER, true);
-
-    if (firstParent) {
-      childObj = getChild({ ...getChildParams, parent: firstParent });
-      allChildren.push(childObj);
-    }
-
-    if (nextParent) {
-      childObj = getChild({ ...getChildParams, parent: nextParent });
-      allChildren.push(childObj);
+    if (matchedChildsParents && Array.isArray(matchedChildsParents)) {
+      matchedChildsParents.map((parent: string) => {
+        childObj = getChild({ ...getChildParams, parent });
+        allChildren.push(childObj);
+      });
     }
 
     /**
      * Get sibling
      */
-    const firstSibling =
+    const matchedSiblings =
       getMatchedCase(travelHxAttr, REL.BROTHER) || getMatchedCase(travelHxAttr, REL.SISTER);
 
-    // If has "and" eg. "Sister of PH41 and PH87" then we need also to match PH87
-    const nextSibling =
-      getMatchedCase(travelHxAttr, REL.BROTHER, true) ||
-      getMatchedCase(travelHxAttr, REL.SISTER, true);
-
-    if (firstSibling) {
-      siblingObj = getSibling({ ...getSiblingParam, sibling: firstSibling });
-      allSiblings.push(siblingObj);
+    if (matchedSiblings) {
+      matchedSiblings.map((sibling: string) => {
+        siblingObj = getSibling({ ...getSiblingParam, sibling });
+        allSiblings.push(siblingObj);
+      });
     }
 
-    if (nextSibling) {
-      siblingObj = getSibling({ ...getSiblingParam, sibling: nextSibling });
-      allSiblings.push(siblingObj);
+    /**
+     * Get nieces
+     */
+    const matchedNieces = getMatchedCase(travelHxAttr, REL.NIECE);
+
+    if (matchedNieces) {
+      matchedNieces.map(id => {
+        allNieces.push({ id, niece: attrs[idStrAttr] });
+      });
+    }
+
+    /**
+     * Get nephews
+     */
+    const matchedNephews = getMatchedCase(travelHxAttr, REL.NEPHEW);
+
+    if (matchedNephews) {
+      matchedNephews.map(id => {
+        allNephews.push({ id, nephew: attrs[idStrAttr] });
+      });
     }
   });
 
   const mother = getChildsParent(id, allChildren, SEX.FEMALE);
   const father = getChildsParent(id, allChildren, SEX.MALE);
   const children = allChildren.filter(({ parent }) => parent === id).map(({ child }) => child);
-  const filteredSiblings = allSiblings
-    .filter(sibling => sibling.id === id)
-    .map(sibling => ({ sibling: sibling.sibling, relationship: sibling.relationship }));
 
+  const filteredSiblings = allSiblings.filter(sibling => sibling.id === id).map(sibling => sibling);
   const siblings = getUnique(filteredSiblings, 'sibling') as Sibling[];
-  return { children, mother, father, siblings };
+
+  const nieces = allNieces.filter(niece => niece.id === id).map(niece => niece);
+  const nephews = allNephews.filter(nephew => nephew.id === id).map(nephew => nephew);
+
+  return { children, mother, father, siblings, nieces, nephews };
 }
 
 export function toRelationsships(
@@ -176,7 +186,7 @@ export function toRelationsships(
   travelHxStrAttr: string,
   features: any
 ): Relationships {
-  const { mother, father, children, siblings } = getConnections(
+  const { mother, father, children, siblings, nieces, nephews } = getConnections(
     id,
     idStrAttr,
     sexStrAttr,
@@ -191,5 +201,7 @@ export function toRelationsships(
     mother,
     father,
     siblings,
+    nieces,
+    nephews,
   };
 }

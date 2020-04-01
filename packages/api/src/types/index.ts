@@ -22,3 +22,5 @@ export * from './Sibling';
 export * from './Child';
 export * from './Connections';
 export * from './GetChildParams';
+export * from './Niece';
+export * from './Nephew';

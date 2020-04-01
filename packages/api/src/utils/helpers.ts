@@ -60,3 +60,11 @@ export function getDummyData(path: string) {
 export function getUnique(arr: any, key: string): any {
   return [...new Map(arr.map((item: any) => [item[key], item])).values()];
 }
+
+export function isContainNum(str: string) {
+  return str.match(/\d+/g);
+}
+
+export function getNextStr(findInStr: string, toSearchStr: string) {
+  return findInStr.match(toSearchStr + '\\s(\\w+)');
+}

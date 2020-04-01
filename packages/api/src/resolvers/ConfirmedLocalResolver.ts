@@ -10,7 +10,16 @@ export class ConfirmedLocalResolver {
     const { features } = await dataSources.ArcGISApi.getConfirmedLocals();
     const data = features.map(
       ({ attributes: attrs }: ArcGISConfirmedLocalAttrs): ConfirmedLocalResponse => {
-        const { children, wife, husband, mother, father, siblings } = toRelationsships(
+        const {
+          children,
+          wife,
+          husband,
+          mother,
+          father,
+          siblings,
+          nieces,
+          nephews,
+        } = toRelationsships(
           attrs.PH_masterl,
           'PH_masterl',
           'kasarian',
@@ -29,9 +38,11 @@ export class ConfirmedLocalResolver {
             father,
             children,
             siblings,
+            nieces,
+            nephews,
           }
         );
-
+        console.log(relationships);
         return {
           case_id: attrs.PH_masterl,
           date_confirmed: toDate(attrs.confirmed),
