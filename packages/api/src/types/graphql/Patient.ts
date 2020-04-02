@@ -1,9 +1,9 @@
 import { ObjectType, Field } from 'type-graphql';
-import { ICoordinates } from './shared';
+import { ICoordinates } from '../shared';
 import { Relationships } from './Relationships';
 
 @ObjectType()
-export class ConfirmedLocalResponse extends ICoordinates {
+export class Patient extends ICoordinates {
   @Field()
   case_id: string;
 

@@ -1,8 +1,8 @@
 import { ObjectType, Field } from 'type-graphql';
-import { ICoordinates } from './shared';
+import { ICoordinates } from '../shared';
 
 @ObjectType()
-export class ConfirmedForeignNationalResponse extends ICoordinates {
+export class ConfirmedOFWResponse extends ICoordinates {
   @Field()
   case_id: string;
 
@@ -10,20 +10,20 @@ export class ConfirmedForeignNationalResponse extends ICoordinates {
   age: number;
 
   @Field()
-  nationality: string;
+  sex: string;
 
   @Field()
-  travel_date: string;
+  country: string;
 
   @Field()
-  travel_history: string;
+  date_reported: string;
 
   @Field()
   date_confirmed: string;
 
-  @Field()
-  where_now: string;
-
   @Field({ nullable: true })
   status?: string;
+
+  @Field({ nullable: true })
+  remarks?: string;
 }

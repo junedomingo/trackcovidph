@@ -1,5 +1,7 @@
 import { Resolver, Ctx, Query } from 'type-graphql';
-import { AppContext, PUIPerHealthFacilityResponse } from '../types';
+
+import { PUIPerHealthFacilityResponse } from '../types/graphql';
+import { AppContext } from '../types/interfaces';
 
 @Resolver()
 export class PUIsByHealthFacilityResolver {

@@ -1,6 +1,7 @@
 import { Ctx, Query, Resolver } from 'type-graphql';
 
-import { AppContext, ConfirmedForeignNationalResponse } from '../types';
+import { ConfirmedForeignNationalResponse } from '../types/graphql';
+import { AppContext } from '../types/interfaces';
 
 @Resolver()
 export class ConfirmedForeignNationalResolver {

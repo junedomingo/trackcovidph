@@ -2,7 +2,7 @@ import moment from 'moment';
 import fs from 'fs';
 import * as dotenv from 'dotenv';
 
-import { ArcGISResponse } from '../types';
+import { ArcGISResponse } from '../types/interfaces';
 import { NULLABLE_VALUES, WORDS_TO_REPLACE, ARCGIS_DATE_FORMAT } from '../conts';
 
 dotenv.config();

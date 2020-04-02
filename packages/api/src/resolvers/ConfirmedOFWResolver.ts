@@ -1,6 +1,7 @@
 import { Ctx, Query, Resolver } from 'type-graphql';
 
-import { AppContext, ConfirmedOFWResponse } from '../types';
+import { ConfirmedOFWResponse } from '../types/graphql';
+import { AppContext } from '../types/interfaces';
 
 @Resolver()
 export class ConfirmedOFWResolver {

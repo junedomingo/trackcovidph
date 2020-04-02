@@ -10,7 +10,7 @@ import {
   ArcGISCountAttrs,
   ArcGISPUIPerHealthFacilityAttrs,
   ArcGISResponse,
-} from '../types';
+} from '../types/interfaces';
 import { parseToJSON, sanitizeResponse, isDummy, getDummyData } from '../utils';
 
 export class ArcGISApi extends RESTDataSource {

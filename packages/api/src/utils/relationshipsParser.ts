@@ -1,19 +1,16 @@
+import { WORDS_TO_EXCLUDE, REL, SEX } from '../conts';
+import { getUnique, isContainNum, getNextStr } from './helpers';
 import {
-  Relationships,
   Sibling,
-  Child,
-  GetChildParams,
-  GetSiblingParams,
-  Connections,
   Niece,
   Nephew,
   Contact,
   Relative,
   HouseholdMember,
   Exposure,
-} from '../types';
-import { WORDS_TO_EXCLUDE, REL, SEX } from '../conts';
-import { getUnique, isContainNum, getNextStr } from './helpers';
+  Relationships,
+} from '../types/graphql';
+import { Child, GetChildParams, GetSiblingParams, Connections } from '../types/interfaces';
 
 let cachedFeatures: any = null;
 

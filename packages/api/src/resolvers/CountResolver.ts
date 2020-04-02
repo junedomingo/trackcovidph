@@ -1,6 +1,7 @@
 import { Ctx, Query, Resolver } from 'type-graphql';
 
-import { AppContext, CountResponse } from '../types';
+import { AppContext } from '../types/interfaces';
+import { CountResponse } from '../types/graphql';
 
 @Resolver()
 export class CountResolver {

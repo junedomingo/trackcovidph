@@ -1,4 +1,4 @@
-import { ArcGISApi } from '../datasources/ArcGISApi';
+import { ArcGISApi } from '../../datasources';
 
 export interface AppContext {
   dataSources: {

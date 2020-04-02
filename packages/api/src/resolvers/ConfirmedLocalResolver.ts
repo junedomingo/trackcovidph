@@ -1,15 +1,16 @@
 import { Ctx, Query, Resolver } from 'type-graphql';
 
-import { AppContext, ConfirmedLocalResponse, ArcGISConfirmedLocalAttrs } from '../types';
+import { Patient } from '../types/graphql';
 import { toDate, toAge, toRelationships } from '../utils';
+import { AppContext, ArcGISConfirmedLocalAttrs } from '../types/interfaces';
 
 @Resolver()
 export class ConfirmedLocalResolver {
-  @Query(() => [ConfirmedLocalResponse])
+  @Query(() => [Patient])
   async confirmedLocals(@Ctx() { dataSources }: AppContext) {
     const { features } = await dataSources.ArcGISApi.getConfirmedLocals();
     const data = features.map(
-      ({ attributes: attrs }: ArcGISConfirmedLocalAttrs): ConfirmedLocalResponse => {
+      ({ attributes: attrs }: ArcGISConfirmedLocalAttrs): Patient => {
         const { ...rels } = toRelationships(
           attrs.PH_masterl,
           'PH_masterl',
