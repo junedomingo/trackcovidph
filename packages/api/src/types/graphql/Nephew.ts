@@ -5,5 +5,5 @@ export class Nephew {
   @Field(() => String, { nullable: true })
   nephew: string | null;
 
-  id?: string;
+  case_id?: string;
 }

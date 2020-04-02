@@ -5,5 +5,5 @@ export class Contact {
   @Field(() => String, { nullable: true })
   contact: string | null;
 
-  id?: string;
+  case_id?: string;
 }

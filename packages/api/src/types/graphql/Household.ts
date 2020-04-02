@@ -5,5 +5,5 @@ export class HouseholdMember {
   @Field(() => String, { nullable: true })
   household: string | null;
 
-  id?: string;
+  case_id?: string;
 }

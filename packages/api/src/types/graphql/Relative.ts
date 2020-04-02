@@ -5,5 +5,5 @@ export class Relative {
   @Field(() => String, { nullable: true })
   relative: string | null;
 
-  id?: string;
+  case_id?: string;
 }

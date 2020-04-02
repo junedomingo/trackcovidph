@@ -2,14 +2,14 @@ export interface GetChildParams {
   child: string;
   parent: string | null;
   features: any;
-  idStrAttr: string;
-  sexStrAttr: string;
+  caseIDFieldName: string;
+  sexFieldName: string;
 }
 
 export interface GetSiblingParams {
-  id: string;
+  caseID: string;
   sibling: string | null;
   features: any;
-  idStrAttr: string;
-  sexStrAttr: string;
+  caseIDFieldName: string;
+  sexFieldName: string;
 }

@@ -5,5 +5,5 @@ export class Exposure {
   @Field(() => String, { nullable: true })
   exposure: string | null;
 
-  id?: string;
+  case_id?: string;
 }

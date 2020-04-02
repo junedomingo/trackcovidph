@@ -12,15 +12,15 @@ export class ConfirmedLocalResolver {
     const data = features.map(
       ({ attributes: attrs }: ArcGISConfirmedLocalAttrs): Patient => {
         const { ...rels } = toRelationships(
-          attrs.PH_masterl,
-          'PH_masterl',
-          'kasarian',
-          attrs.travel_hx,
-          'travel_hx',
-          features
+          attrs.PH_masterl, // caseID
+          'PH_masterl', // caseIDFieldName
+          'kasarian', // sexFieldName
+          attrs.travel_hx, // strToParse
+          'travel_hx', // srtToParseFieldName
+          features // features
         );
-        const id = attrs.PH_masterl;
-        const relationships = { id, ...rels };
+        const case_id = attrs.PH_masterl;
+        const relationships = { case_id, ...rels };
 
         console.log(relationships);
         return {

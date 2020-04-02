@@ -8,5 +8,5 @@ export class Sibling {
   @Field(() => String, { nullable: true })
   sibling: string | null;
 
-  id: string;
+  case_id: string;
 }
