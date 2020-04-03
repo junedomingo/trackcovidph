@@ -24,7 +24,6 @@ export async function cachedRequest(
     if (isDummy) {
       response.data = getDummyData(`${__dirname}/${resourceUrl}`);
     } else {
-      //@ts-ignore
       response.data = await api[method](requestUrl);
     }
 
