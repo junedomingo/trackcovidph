@@ -7,3 +7,4 @@ lib
 tsconfig.tsbuildinfo
 .idea
 .env
+dump.rdb
