@@ -20,6 +20,7 @@
     "reflect-metadata": "^0.1.13"
   },
   "dependencies": {
+    "@types/ioredis": "^4.14.9",
     "apollo-datasource-rest": "^0.8.0",
     "apollo-server-cache-redis": "^1.1.5",
     "dotenv": "^8.2.0",
