@@ -25,8 +25,8 @@ export class Patient extends ICoordinates {
   @Field({ nullable: true })
   status?: string;
 
-  @Field()
-  facility: string;
+  @Field({ nullable: true })
+  facility?: string;
 
   @Field({ nullable: true })
   symptoms?: string;

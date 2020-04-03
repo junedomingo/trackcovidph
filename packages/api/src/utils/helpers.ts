@@ -48,6 +48,10 @@ export function isDevEnv() {
   return process.env.NODE_ENV === 'development';
 }
 
+export function isProdEnv() {
+  return process.env.NODE_ENV === 'production';
+}
+
 export function isDummy() {
   return process.env.DATA_RESOURCE === 'dummy';
 }

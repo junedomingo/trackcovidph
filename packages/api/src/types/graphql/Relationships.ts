@@ -25,23 +25,23 @@ export class Relationships {
   children?: string[];
 
   @Field(() => [Sibling])
-  siblings: Sibling[];
+  siblings?: Sibling[];
 
   @Field(() => [Niece])
-  nieces: Niece[];
+  nieces?: Niece[];
 
   @Field(() => [Nephew])
-  nephews: Nephew[];
+  nephews?: Nephew[];
 
   @Field(() => [Contact])
-  contacts: Contact[];
+  contacts?: Contact[];
 
   @Field(() => [Relative])
-  relatives: Relative[];
+  relatives?: Relative[];
 
   @Field(() => [HouseholdMember])
-  householdMembers: HouseholdMember[];
+  householdMembers?: HouseholdMember[];
 
   @Field(() => [Exposure])
-  exposures: Exposure[];
+  exposures?: Exposure[];
 }

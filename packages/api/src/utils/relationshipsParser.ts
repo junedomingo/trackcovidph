@@ -14,7 +14,7 @@ import { Child, GetChildParams, GetSiblingParams, Connections } from '../types/i
 
 let cachedFeatures: any = null;
 
-function getMatchedCase(
+export function getMatchedCase(
   strToParse: string,
   relationship: string,
   strIden: string = 'of'
@@ -45,15 +45,15 @@ function getMatchedCase(
   return null;
 }
 
-function getWife(strToParse: string) {
+export function getWife(strToParse: string) {
   return getMatchedCase(strToParse, REL.HUSBAND)?.[0] ?? null;
 }
 
-function getHusband(strToParse: string) {
+export function getHusband(strToParse: string) {
   return getMatchedCase(strToParse, REL.WIFE)?.[0] ?? null;
 }
 
-function getChildsParent(caseID: string, children: Child[], sex: string) {
+export function getChildsParent(caseID: string, children: Child[], sex: string) {
   return (
     children
       .filter(({ child, parentSex }) => child === caseID && parentSex === sex)
@@ -62,7 +62,7 @@ function getChildsParent(caseID: string, children: Child[], sex: string) {
   );
 }
 
-function getChild({
+export function getChild({
   child,
   parent,
   features,
@@ -78,7 +78,7 @@ function getChild({
   return { child, parent, parentSex };
 }
 
-function getSibling({
+export function getSibling({
   caseID,
   sibling,
   features,
@@ -296,17 +296,17 @@ export function toRelationships(
   strToParseFieldName: string,
   features: any
 ): Relationships {
-  const { ...connections } = getConnections(
-    caseID,
-    caseIDFieldName,
-    sexFieldName,
-    strToParseFieldName,
-    features
-  );
+  // const { ...connections } = getConnections(
+  //   caseID,
+  //   caseIDFieldName,
+  //   sexFieldName,
+  //   strToParseFieldName,
+  //   features
+  // );
 
   return {
     wife: getWife(strToParse),
     husband: getHusband(strToParse),
-    ...connections,
+    // ...connections,
   };
 }
