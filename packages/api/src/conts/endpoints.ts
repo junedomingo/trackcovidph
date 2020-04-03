@@ -11,5 +11,5 @@ export enum ENDPOINTS {
   ARCGIS_PUIs_PER_HEALTH_FACILITY = 'PUI_fac_tracing/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*',
   ARCGIS_CONFIRMED_PER_RESIDENCE = 'PH_masterlist/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&groupByFieldsForStatistics=residence&orderByFields=value desc&outStatistics=[{"statisticType"%3A"count"%2C"onStatisticField"%3A"FID"%2C"outStatisticFieldName"%3A"value"}]&cacheHint=true',
   ARCGIS_CONFIRMED_PER_AGE_GROUP = 'age_group/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&groupByFieldsForStatistics=age_categ%2Csex&outStatistics=[{"statisticType"%3A"count"%2C"onStatisticField"%3A"FID"%2C"outStatisticFieldName"%3A"value"}]&outSR=102100&cacheHint=true',
-  ARCGIS_COUNT = 'slide_fig/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*',
+  ARCGIS_COUNTS = 'slide_fig/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*',
 }
