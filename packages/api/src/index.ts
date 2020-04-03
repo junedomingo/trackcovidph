@@ -4,8 +4,9 @@ import express from 'express';
 import http from 'http';
 import { buildSchema } from 'type-graphql';
 import * as dotenv from 'dotenv';
-dotenv.config();
+import { redis } from './config';
 
+dotenv.config();
 import { ArcGISApi } from './datasources/ArcGISApi';
 import {
   ConfirmedPerHealthFacilityResolver,
@@ -16,9 +17,13 @@ import {
   CountResolver,
   PUIsByHealthFacilityResolver,
 } from './resolvers';
+import { defaultQuery } from './utils/defaultQuery';
+import { isProdEnv } from './utils';
 
 (async () => {
   const port = process.env.PORT || 8001;
+  const baseUrl = `${process.env.BASE_URL}${!isProdEnv() ? `:${port}` : ''}`;
+
   const app = express();
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
@@ -34,7 +39,15 @@ import {
       validate: true,
     }),
     dataSources: () => ({ ArcGISApi: new ArcGISApi() }),
-    playground: true,
+    playground: {
+      title: 'TrackCovidPH GraphQL API',
+      tabs: [
+        {
+          endpoint: `${baseUrl}/graphql`,
+          query: defaultQuery,
+        },
+      ],
+    },
   });
 
   apolloServer.applyMiddleware({
@@ -50,6 +63,6 @@ import {
   apolloServer.installSubscriptionHandlers(httpServer);
 
   httpServer.listen(port, () =>
-    console.log(`Server started at http://localhost:${port}${apolloServer.graphqlPath}`)
+    console.log(`Server started at ${baseUrl}${apolloServer.graphqlPath}`)
   );
 })();

@@ -32,7 +32,7 @@ export function sanitizeResponse<T>(response: ArcGISResponse<T>): ArcGISResponse
   return response;
 }
 
-export function parseToJSON<T>(response: string): ArcGISResponse<T> {
+export function parseToJSON(response: string) {
   return JSON.parse(response);
 }
 
@@ -67,4 +67,8 @@ export function isContainNum(str: string) {
 
 export function getNextStr(findInStr: string, toSearchStr: string) {
   return findInStr.match(toSearchStr + '\\s(\\w+)');
+}
+
+export function log(message: string) {
+  return isDevEnv() ? console.log(message) : undefined;
 }

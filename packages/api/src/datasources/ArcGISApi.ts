@@ -11,7 +11,8 @@ import {
   ArcGISPUIPerHealthFacilityAttrs,
   ArcGISResponse,
 } from '../types/interfaces';
-import { parseToJSON, sanitizeResponse, isDummy, getDummyData } from '../utils';
+import { parseToJSON, sanitizeResponse, isDummy } from '../utils';
+import { cachedRequest } from './cachedRequest';
 
 export class ArcGISApi extends RESTDataSource {
   constructor() {
@@ -31,12 +32,12 @@ export class ArcGISApi extends RESTDataSource {
   async getConfirmedLocals(): Promise<ArcGISResponse<ArcGISConfirmedLocalAttrs>> {
     try {
       if (isDummy()) {
-        return sanitizeResponse(
-          parseToJSON(getDummyData(`${__dirname}/dummyData/DummyDataConfirmedLocals.json`))
-        );
+        const dummyFilePath = 'dummyData/DummyDataConfirmedLocals.json';
+        const response = await cachedRequest(this, '', dummyFilePath, 60 * 10, true);
+        return sanitizeResponse(parseToJSON(response.data));
       }
-      const response: string = await this.get(ENDPOINTS.ARCGIS_CONFIRMED_LOCALS);
-      return sanitizeResponse(parseToJSON(response));
+      const response = await cachedRequest(this, 'get', ENDPOINTS.ARCGIS_CONFIRMED_LOCALS, 60 * 10);
+      return sanitizeResponse(parseToJSON(response.data));
     } catch (error) {
       throw error;
     }
