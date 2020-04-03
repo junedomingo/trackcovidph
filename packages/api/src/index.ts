@@ -38,7 +38,12 @@ import { isProdEnv } from './utils';
       ],
       validate: true,
     }),
+    context: ({ req, res }) => ({ req, res }),
     dataSources: () => ({ ArcGISApi: new ArcGISApi() }),
+    cache: redis,
+    cacheControl: {
+      defaultMaxAge: 60 * 10, // 10mins
+    },
     playground: {
       title: 'TrackCovidPH GraphQL API',
       tabs: [
