@@ -8,3 +8,4 @@ tsconfig.tsbuildinfo
 .idea
 .env
 dump.rdb
+build

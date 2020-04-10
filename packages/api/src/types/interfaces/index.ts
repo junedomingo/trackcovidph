@@ -10,5 +10,12 @@ export * from './ArcGISPUIPerHealthFacilityAttrs';
 export * from './ArcGISCountAttrs';
 
 export * from './Child';
-export * from './Connections';
+export * from './Nephew';
 export * from './GetChildParams';
+export * from './Niece';
+export * from './Relative';
+export * from './Household';
+export * from './Exposure';
+export * from './Contact';
+
+export * from './Cache';

@@ -5,6 +5,6 @@
     "outDir": "./dist",
     "rootDir": "./src"
   },
-  "include": ["src/**/*.json", "./src/**/*.ts"],
+  "include": ["src/**/*.{ts,json}"],
   "references": []
 }

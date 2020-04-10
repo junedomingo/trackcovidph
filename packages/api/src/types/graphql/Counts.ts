@@ -1,7 +1,7 @@
 import { ObjectType, Field } from 'type-graphql';
 
 @ObjectType()
-export class CountResponse {
+export class Counts {
   @Field()
   day: number;
 

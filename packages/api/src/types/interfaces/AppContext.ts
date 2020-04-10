@@ -1,9 +1,12 @@
 import { ArcGISApi } from '../../datasources';
-import { RedisCache } from 'apollo-server-cache-redis';
+import { Redis } from 'ioredis';
+import { Request, Response } from 'express';
 
 export interface AppContext {
   dataSources: {
     ArcGISApi: ArcGISApi;
   };
-  redis: RedisCache;
+  req: Request;
+  res: Response;
+  redis: Redis;
 }

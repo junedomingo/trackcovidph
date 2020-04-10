@@ -1,47 +1,44 @@
 import { Field, ObjectType } from 'type-graphql';
 import { Sibling } from './Sibling';
-import { Niece } from './Niece';
-import { Nephew } from './Nephew';
-import { Contact } from './Contact';
-import { Relative } from './Relative';
-import { HouseholdMember } from './Household';
-import { Exposure } from './Exposure';
+import { Patient } from './Patient';
 
-@ObjectType()
+@ObjectType({})
 export class Relationships {
-  @Field(() => String || null, { nullable: true })
-  wife?: string | null;
+  case_id: string;
 
-  @Field(() => String || null, { nullable: true })
-  husband?: string | null;
+  @Field(() => Patient, { nullable: true })
+  wife: Patient;
 
-  @Field(() => String, { nullable: true })
-  mother?: string | null;
+  @Field(() => Patient, { nullable: true })
+  husband: Patient;
 
-  @Field(() => String, { nullable: true })
-  father?: string | null;
+  @Field(() => Patient, { nullable: true })
+  mother: Patient;
 
-  @Field(() => [String])
-  children?: string[];
+  @Field(() => Patient, { nullable: true })
+  father: Patient;
+
+  @Field(() => [Patient])
+  children: [Patient];
 
   @Field(() => [Sibling])
-  siblings?: Sibling[];
+  siblings: Sibling[];
 
-  @Field(() => [Niece])
-  nieces?: Niece[];
+  @Field(() => [Patient])
+  nieces: Patient[];
 
-  @Field(() => [Nephew])
-  nephews?: Nephew[];
+  @Field(() => [Patient])
+  nephews: Patient[];
 
-  @Field(() => [Contact])
-  contacts?: Contact[];
+  @Field(() => [Patient])
+  contacts: Patient[];
 
-  @Field(() => [Relative])
-  relatives?: Relative[];
+  @Field(() => [Patient])
+  relatives: Patient[];
 
-  @Field(() => [HouseholdMember])
-  householdMembers?: HouseholdMember[];
+  @Field(() => [Patient])
+  householdMembers: Patient[];
 
-  @Field(() => [Exposure])
-  exposures?: Exposure[];
+  @Field(() => [Patient])
+  exposures: Patient[];
 }

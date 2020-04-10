@@ -1,9 +1,8 @@
 import { ObjectType, Field } from 'type-graphql';
-import { Relationships } from './Relationships';
 import { Facility } from './Facility';
 
 @ObjectType()
-export class Patient {
+export class RPatient {
   @Field()
   case_id: string;
 
@@ -42,9 +41,4 @@ export class Patient {
 
   @Field(() => [String], { nullable: true })
   travel_history?: string[] | null;
-
-  @Field(() => Relationships, { nullable: true })
-  relationships?: Relationships;
-
-  strToParse: string[];
 }

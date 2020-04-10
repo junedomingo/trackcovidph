@@ -1,6 +1,3 @@
-import { RedisCache } from 'apollo-server-cache-redis';
+import Redis from 'ioredis';
 
-export const redis = new RedisCache({
-  port: 6379,
-  host: 'localhost',
-});
+export const redis = new Redis();

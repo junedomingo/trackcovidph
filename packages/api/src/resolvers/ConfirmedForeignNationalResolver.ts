@@ -1,15 +1,17 @@
 import { Ctx, Query, Resolver } from 'type-graphql';
 
-import { ConfirmedForeignNationalResponse } from '../types/graphql';
+import { ConfirmedForeignNational } from '../types/graphql';
 import { AppContext } from '../types/interfaces';
 
 @Resolver()
 export class ConfirmedForeignNationalResolver {
-  @Query(() => [ConfirmedForeignNationalResponse])
-  async confirmedForeignNationals(@Ctx() { dataSources }: AppContext) {
+  @Query(() => [ConfirmedForeignNational])
+  async confirmedForeignNationals(
+    @Ctx() { dataSources }: AppContext
+  ): Promise<ConfirmedForeignNational[]> {
     const { features } = await dataSources.ArcGISApi.getConfirmedForeignNationals();
     const data = features.map(
-      ({ attributes: attr }): ConfirmedForeignNationalResponse => ({
+      ({ attributes: attr }): ConfirmedForeignNational => ({
         case_id: attr.FN_masterl,
         age: attr.edad,
         coordinates: {

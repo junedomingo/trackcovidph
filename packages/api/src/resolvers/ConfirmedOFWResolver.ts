@@ -1,15 +1,15 @@
 import { Ctx, Query, Resolver } from 'type-graphql';
 
-import { ConfirmedOFWResponse } from '../types/graphql';
+import { ConfirmedOFW } from '../types/graphql';
 import { AppContext } from '../types/interfaces';
 
 @Resolver()
 export class ConfirmedOFWResolver {
-  @Query(() => [ConfirmedOFWResponse])
-  async confirmedOFWs(@Ctx() { dataSources }: AppContext) {
+  @Query(() => [ConfirmedOFW])
+  async confirmedOFWs(@Ctx() { dataSources }: AppContext): Promise<ConfirmedOFW[]> {
     const { features } = await dataSources.ArcGISApi.getConfirmedOFWs();
     const data = features.map(
-      ({ attributes: attr }): ConfirmedOFWResponse => ({
+      ({ attributes: attr }): ConfirmedOFW => ({
         case_id: attr.Case_numbe,
         age: attr.age,
         coordinates: {

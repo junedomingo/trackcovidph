@@ -2,10 +2,10 @@ import { Field, ObjectType } from 'type-graphql';
 
 @ObjectType()
 export class Coordinates {
-  @Field()
+  @Field(() => Number, { nullable: true })
   lat: number;
 
-  @Field()
+  @Field(() => Number, { nullable: true })
   lng: number;
 }
 

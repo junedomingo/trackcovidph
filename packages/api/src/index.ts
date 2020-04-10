@@ -5,6 +5,8 @@ import http from 'http';
 import { buildSchema } from 'type-graphql';
 import * as dotenv from 'dotenv';
 import { redis } from './config';
+import { Context } from 'apollo-server-core';
+import { DataSources } from 'apollo-server-core/dist/graphqlOptions';
 
 dotenv.config();
 import { ArcGISApi } from './datasources/ArcGISApi';
@@ -17,10 +19,10 @@ import {
   CountResolver,
   PUIsByHealthFacilityResolver,
 } from './resolvers';
-import { defaultQuery } from './utils/defaultQuery';
+import { confirmedLocals, counts } from './utils/defaultQuery';
 import { isProdEnv } from './utils';
 
-(async () => {
+(async (): Promise<void> => {
   const port = process.env.PORT || 8001;
   const baseUrl = `${process.env.BASE_URL}${!isProdEnv() ? `:${port}` : ''}`;
 
@@ -38,9 +40,8 @@ import { isProdEnv } from './utils';
       ],
       validate: true,
     }),
-    context: ({ req, res }) => ({ req, res }),
-    dataSources: () => ({ ArcGISApi: new ArcGISApi() }),
-    cache: redis,
+    context: ({ req, res }): Context => ({ req, res, redis }),
+    dataSources: (): DataSources<Context> => ({ ArcGISApi: new ArcGISApi() }),
     cacheControl: {
       defaultMaxAge: 60 * 10, // 10mins
     },
@@ -49,7 +50,11 @@ import { isProdEnv } from './utils';
       tabs: [
         {
           endpoint: `${baseUrl}/graphql`,
-          query: defaultQuery,
+          query: confirmedLocals,
+        },
+        {
+          endpoint: `${baseUrl}/graphql`,
+          query: counts,
         },
       ],
     },

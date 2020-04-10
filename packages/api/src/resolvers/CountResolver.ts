@@ -1,15 +1,15 @@
 import { Ctx, Query, Resolver } from 'type-graphql';
 
 import { AppContext } from '../types/interfaces';
-import { CountResponse } from '../types/graphql';
+import { Counts } from '../types/graphql';
 
 @Resolver()
 export class CountResolver {
-  @Query(() => CountResponse)
-  async count(@Ctx() { dataSources }: AppContext) {
-    const { features } = await dataSources.ArcGISApi.getCount();
+  @Query(() => Counts)
+  async counts(@Ctx() { dataSources }: AppContext): Promise<Counts> {
+    const { features } = await dataSources.ArcGISApi.getCounts();
     const data = features.map(
-      ({ attributes: attr }): CountResponse => ({
+      ({ attributes: attr }): Counts => ({
         day: attr.day,
         confirmed: attr.confirmed,
         PUIs: attr.PUIs,

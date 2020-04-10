@@ -2,7 +2,7 @@ import { ObjectType, Field } from 'type-graphql';
 import { ICoordinates } from '../shared';
 
 @ObjectType()
-export class PUIPerHealthFacilityResponse extends ICoordinates {
+export class PUIPerHealthFacility extends ICoordinates {
   @Field()
   region: string;
 

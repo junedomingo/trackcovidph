@@ -2,7 +2,7 @@ import { ObjectType, Field } from 'type-graphql';
 import { ICoordinates } from '../shared';
 
 @ObjectType()
-export class ConfirmedOFWResponse extends ICoordinates {
+export class ConfirmedOFW extends ICoordinates {
   @Field()
   case_id: string;
 

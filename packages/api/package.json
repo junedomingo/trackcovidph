@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "A GraphQL endpoint for tracking Covid-19 in the Philippines",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon dist/index.js --delay 1",
-    "build": "rimraf ./dist && tsc"
+    "start": "ts-node-dev --respawn --transpileOnly --no-notify src/index.ts",
+    "build:clean": "rimraf ./dist/*",
+    "build": "npm run build:clean && tsc",
+    "lint": "eslint '*/**/*.ts'"
   },
   "keywords": [],
   "author": "June Domingo <junedomingo@gmail.com>",
@@ -17,7 +20,8 @@
     "@types/moment": "^2.13.0",
     "apollo-server-express": "^2.11.0",
     "nodemon": "^2.0.2",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "ts-node-dev": "^1.0.0-pre.44"
   },
   "dependencies": {
     "@types/ioredis": "^4.14.9",
@@ -27,6 +31,7 @@
     "express": "^4.17.1",
     "graphql": "^14.6.0",
     "graphql-scalars": "^1.0.9",
+    "i18n-iso-countries": "^5.1.0",
     "moment": "^2.24.0",
     "type-graphql": "^0.17.6"
   }

@@ -2,9 +2,8 @@
   "compilerOptions": {
     "target": "ES2015",
     "module": "CommonJS",
-    "lib": ["ES2015", "ESNext", "ESNext.AsyncIterable"],
+    "lib": ["ES2015", "ESNext", "DOM.Iterable", "DOM", "ESNext.AsyncIterable"],
     "moduleResolution": "node",
-    "composite": true,
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
