@@ -1,0 +1,46 @@
+query ConfirmedLocals {
+  confirmedLocals {
+    ...PatientAttributes
+    relationships {
+      wife {
+        ...PatientAttributes
+      }
+      husband {
+        ...PatientAttributes
+      }
+      mother {
+        ...PatientAttributes
+      }
+      father {
+        ...PatientAttributes
+      }
+      children {
+        ...PatientAttributes
+      }
+      siblings {
+        sibling {
+          ...PatientAttributes
+        }
+        relationship
+      }
+      nieces {
+        ...PatientAttributes
+      }
+      nephews {
+        ...PatientAttributes
+      }
+      contacts {
+        ...PatientAttributes
+      }
+      relatives {
+        ...PatientAttributes
+      }
+      householdMembers {
+        ...PatientAttributes
+      }
+      exposures {
+        ...PatientAttributes
+      }
+    }
+  }
+}

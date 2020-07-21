@@ -1,9 +1,12 @@
-import { ObjectType, Field } from 'type-graphql';
+import { ObjectType, Field, ID } from 'type-graphql';
 import { Relationships } from './Relationships';
 import { Facility } from './Facility';
 
 @ObjectType()
 export class Patient {
+  @Field(() => ID)
+  id: number;
+
   @Field()
   case_id: string;
 

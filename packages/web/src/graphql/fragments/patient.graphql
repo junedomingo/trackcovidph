@@ -1,0 +1,23 @@
+fragment PatientAttributes on Patient {
+  id
+  case_id
+  residence
+  nationality
+  date_confirmed
+  date_reported
+  date_recovered
+  date_deceased
+  age
+  sex
+  status
+  facility {
+    name
+    coordinates {
+      lng
+      lat
+    }
+  }
+  symptoms
+  travel_history
+  __typename
+}

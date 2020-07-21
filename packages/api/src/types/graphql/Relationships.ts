@@ -7,38 +7,38 @@ export class Relationships {
   case_id: string;
 
   @Field(() => Patient, { nullable: true })
-  wife: Patient;
+  wife?: Patient;
 
   @Field(() => Patient, { nullable: true })
-  husband: Patient;
+  husband?: Patient;
 
   @Field(() => Patient, { nullable: true })
-  mother: Patient;
+  mother?: Patient;
 
   @Field(() => Patient, { nullable: true })
-  father: Patient;
+  father?: Patient;
 
-  @Field(() => [Patient])
-  children: [Patient];
+  @Field(() => [Patient], { nullable: true })
+  children?: [Patient];
 
-  @Field(() => [Sibling])
-  siblings: Sibling[];
+  @Field(() => [Sibling], { nullable: true })
+  siblings?: Sibling[];
 
-  @Field(() => [Patient])
-  nieces: Patient[];
+  @Field(() => [Patient], { nullable: true })
+  nieces?: Patient[];
 
-  @Field(() => [Patient])
-  nephews: Patient[];
+  @Field(() => [Patient], { nullable: true })
+  nephews?: Patient[];
 
-  @Field(() => [Patient])
-  contacts: Patient[];
+  @Field(() => [Patient], { nullable: true })
+  contacts?: Patient[];
 
-  @Field(() => [Patient])
-  relatives: Patient[];
+  @Field(() => [Patient], { nullable: true })
+  relatives?: Patient[];
 
-  @Field(() => [Patient])
-  householdMembers: Patient[];
+  @Field(() => [Patient], { nullable: true })
+  householdMembers?: Patient[];
 
-  @Field(() => [Patient])
-  exposures: Patient[];
+  @Field(() => [Patient], { nullable: true })
+  exposures?: Patient[];
 }

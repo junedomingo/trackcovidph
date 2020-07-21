@@ -307,7 +307,8 @@ export async function getPatients(patients: Patient[]): Promise<Patient[]> {
 
       const exposures = allExposures
         .filter((exposure) => exposure.case_id === caseID)
-        .map((exposure) => patients.find((p) => p.case_id === exposure.exposure));
+        .map((exposure) => patients.find((p) => p.case_id === exposure.exposure))
+        .filter((exposure) => exposure);
 
       const wife = getWife(strToParse, patients);
       const husband = getHusband(strToParse, patients);

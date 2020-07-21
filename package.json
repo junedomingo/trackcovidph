@@ -1,5 +1,9 @@
 {
   "name": "trackcovidph",
+  "author": {
+    "name": "June Domingo",
+    "email": "junedomingo@gmail.com"
+  },
   "private": true,
   "workspaces": {
     "packages": [
@@ -19,8 +23,8 @@
     "build:api": "yarn workspace @trackcovidph/api build",
     "start": "concurrently \"npm run start:web\" \"npm run start:api\" ",
     "release": "lerna version --conventional-commits",
-    "postinstall": "npm run clean:tsbuildinfo && npm run build",
-    "lint": "lerna run lint --stream --scope=@trackcovidph/{web,api}"
+    "lint": "lerna run lint --stream --scope=@trackcovidph/{web,api}",
+    "postinstall": "npm run clean:tsbuildinfo && npm run build"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.27.0",

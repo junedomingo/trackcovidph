@@ -1,24 +1,21 @@
 import React from 'react';
-import './App.css';
+import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
+import Routes from './Routes';
 
-function App() {
+const App = () => {
+  const client = new ApolloClient({
+    connectToDevTools: true,
+    cache: new InMemoryCache({}),
+    link: new HttpLink({
+      uri: 'http://localhost:8001/graphql',
+    }),
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ApolloProvider client={client}>
+      <Routes />
+    </ApolloProvider>
   );
-}
+};
 
 export default App;
